@@ -5,10 +5,10 @@
     <img src="https://github.com/shorterloop/deep-searching-shorterloop-backlog/blob/main/deep-searching.svg?raw=true" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Deep-Searching</h3>
+  <h3 align="center">Deep Searching Filter</h3>
 
   <p align="center">
-    Searching by 'keyword' deep in a nested array or nested object.
+    Searching by `{ ... filters... }` deep in a nested array or nested object.
   </p>
 </div>
 
@@ -50,24 +50,32 @@ This is basic js code can be implemented in frontend or backend.
 Install NPM packages
 
 ```sh
- npm i deep-level-searching
+ npm i deep-level-backlog-filters
 ```
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-1- import 'deep-level-searching'
+1- import 'deep-level-backlog-filters'
 
 ```sh
-import {deepSearching} from 'deep-level-searching';
+import deepSearching from 'deep-level-backlog-filters';
 ```
 
 2- Input
 
-- keyword -> search string
-- nested array -> array in which we have to perform searching
-- excludedKeys -> array of keys on which user does not want to perform searching
+| Attribute      | Description                                           |
+|----------------|-------------------------------------------------------|
+| Nested Array   | array in which we have to perform searching          |
+| Keyword        | search string example { workItem: 'US-' }            |
+| Replacements   |                                                      |
+|                | `{`                                                  |
+|                | `  workItem: 'externalKey',`                         |
+|                | `  owner: 'userId',`                                 |
+|                | `  status: 'progress',`                              |
+|                | `}`                                                  |
+
 
 ```sh
 let filteredData = deepSearching(keyword,nestedArray,{excluded:excludedKeys});
@@ -78,9 +86,9 @@ let filteredData = deepSearching(keyword,nestedArray,{excluded:excludedKeys});
 ## Example
 
 ```sh
-import {deepSearching} from 'deep-level-searching';
+import deepSearching from 'deep-level-backlog-filters';
 
-filteredData = deepSearching(data, filteredData, {
+filteredData = deepSearching(data, {workItem: 'US-'}, {
   workItem: 'externalKey',
   owner: 'userId',
   status: 'progress',
