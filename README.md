@@ -60,7 +60,7 @@ Install NPM packages
 1- import 'deep-level-searching'
 
 ```sh
-import {deepSearch} from 'deep-level-searching';
+import {deepSearching} from 'deep-level-searching';
 ```
 
 2- Input
@@ -70,7 +70,7 @@ import {deepSearch} from 'deep-level-searching';
 - excludedKeys -> array of keys on which user does not want to perform searching
 
 ```sh
-let filteredData = deepSearch(keyword,nestedArray,{excluded:excludedKeys});
+let filteredData = deepSearching(keyword,nestedArray,{excluded:excludedKeys});
 ```
 
 <!-- EXAMPLES -->
@@ -78,9 +78,11 @@ let filteredData = deepSearch(keyword,nestedArray,{excluded:excludedKeys});
 ## Example
 
 ```sh
-import {deepSearch} from 'deep-level-searching';
-const keyword = 'john';
-const nestedArray = [{}]
-const excludedKeys = []
-let filteredData = deepSearch(keyword,nestedArray,{excluded:excludedKeys});
+import {deepSearching} from 'deep-level-searching';
+
+filteredData = deepSearching(data, filteredData, {
+  workItem: 'externalKey',
+  owner: 'userId',
+  status: 'progress',
+});
 ```
