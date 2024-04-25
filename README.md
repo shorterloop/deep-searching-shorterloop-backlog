@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/chhavikohli/deep-searching/blob/main/deep-searching.png?raw=true" alt="Logo" width="80" height="80">
+    <img src="https://github.com/shorterloop/deep-searching-shorterloop-backlog/blob/main/deep-searching.svg?raw=true" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Deep-Searching</h3>
