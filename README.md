@@ -78,7 +78,7 @@ import deepSearching from 'deep-level-backlog-filters';
 
 
 ```sh
-let filteredData = deepSearching(keyword,nestedArray,{excluded:excludedKeys});
+let filteredData = deepSearching({workItem: 'US-'}, nestedArray, replacements);
 ```
 
 <!-- EXAMPLES -->
@@ -88,7 +88,7 @@ let filteredData = deepSearching(keyword,nestedArray,{excluded:excludedKeys});
 ```sh
 import deepSearching from 'deep-level-backlog-filters';
 
-filteredData = deepSearching(data, {workItem: 'US-'}, {
+filteredData = deepSearching( {workItem: 'US-'}, data, {
   workItem: 'externalKey',
   owner: 'userId',
   status: 'progress',
