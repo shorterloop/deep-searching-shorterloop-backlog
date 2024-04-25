@@ -1,0 +1,27 @@
+{
+  "name": "deep-level-backlog-filters",
+  "version": "1.0.19",
+  "description": "Search through object properties recursively at any level.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "deepsearch",
+    "nestedsearch",
+    "search",
+    "immutable",
+    "nested",
+    "objectsearch"
+  ],
+  "author": "Shorter Loop",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shorterloop/deep-searching-shorterloop-backlog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shorterloop/deep-searching-shorterloop-backlog/issues"
+  },
+  "homepage": "https://github.com/shorterloop/deep-searching-shorterloop-backlog#readme"
+}
