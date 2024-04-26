@@ -67,8 +67,8 @@ import deepSearching from 'deep-level-backlog-filters';
 
 | Attribute      | Description                                           |
 |----------------|-------------------------------------------------------|
-| Nested Array   | array in which we have to perform searching          |
-| Keyword        | search string example { workItem: 'US-' }            |
+| data   | array in which we have to perform searching          |
+| filterData        | search string example { workItem: 'US-', searchingKeyword: '' }            |
 | Replacements   |                                                      |
 |                | `{`                                                  |
 |                | `  workItem: 'externalKey',`                         |
@@ -88,9 +88,9 @@ let filteredData = deepSearching({workItem: 'US-'}, nestedArray, replacements);
 ```sh
 import deepSearching from 'deep-level-backlog-filters';
 
-filteredData = deepSearching( {workItem: 'US-'}, data, {
+filteredData = deepSearching( {workItem: 'US-', searchingKeyword: ''}, data, {
   workItem: 'externalKey',
   owner: 'userId',
-  status: 'progress',
+  status: 'progress'
 });
 ```
