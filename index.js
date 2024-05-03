@@ -193,8 +193,7 @@ function deepSearching(filters, data, replacements) {
     if (!unScored) {
       items = items.filter(item => (item?.score > 0));
     }
-
-    return removeDuplicatesById(items);
+    return items;
   }
 
   const isStringifiedArray = value => {
