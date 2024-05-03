@@ -19,6 +19,7 @@ function deepSearching(filters, data, replacements) {
     owner,
     workItem,
     searchingKeyword = '',
+    unScored,
   } = removeEmptyStringValues(filters);
   searchingKeyword = searchingKeyword.toLocaleLowerCase();
   const {
@@ -132,7 +133,6 @@ function deepSearching(filters, data, replacements) {
 
     return removeDuplicatesById(result);
   }
-
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
@@ -155,7 +155,6 @@ function deepSearching(filters, data, replacements) {
 
     return removeDuplicatesById(result);
   }
-
   function recursiveFilterByOwners(items) {
     const result = [];
     for (const item of items) {
@@ -181,6 +180,18 @@ function deepSearching(filters, data, replacements) {
         const matchedUserStories = recursiveFilterByOwners(item.userStories);
         result.push(...matchedUserStories);
       }
+    }
+
+    return removeDuplicatesById(result);
+  }
+
+  function recursiveFilterByScore(unScored, items) {
+    if (unScored) {
+      items = items.filter(item => !item?.score || (item && item.score === 0));
+    }
+
+    if (!unScored) {
+      items = items.filter(item => (item && item.score > 0));
     }
 
     return removeDuplicatesById(result);
@@ -213,6 +224,10 @@ function deepSearching(filters, data, replacements) {
 
   if (searchingKeyword) {
     filteredByWorkItem = recursiveFilterBySearchKey(filteredByWorkItem);
+  }
+
+  if (typeof unScored !== 'undefined') {
+    filteredByWorkItem = recursiveFilterByScore(unScored, filteredByWorkItem);
   }
 
   if (workItem) {
