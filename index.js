@@ -187,7 +187,7 @@ function deepSearching(filters, data, replacements) {
 
   function recursiveFilterByScore(unScored, items) {
     if (unScored) {
-      items = items.filter(item => !item?.score);
+      items = items.filter(item => (!item?.score || item?.score == 0));
     }
 
     if (!unScored) {
