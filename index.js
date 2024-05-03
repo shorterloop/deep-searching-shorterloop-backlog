@@ -194,7 +194,7 @@ function deepSearching(filters, data, replacements) {
       items = items.filter(item => (item && item.score > 0));
     }
 
-    return removeDuplicatesById(result);
+    return removeDuplicatesById(items);
   }
 
   const isStringifiedArray = value => {
