@@ -187,11 +187,11 @@ function deepSearching(filters, data, replacements) {
 
   function recursiveFilterByScore(unScored, items) {
     if (unScored) {
-      items = items.filter(item => !item?.score || (item && item.score === 0));
+      items = items.filter(item => !item?.score);
     }
 
     if (!unScored) {
-      items = items.filter(item => (item && item.score > 0));
+      items = items.filter(item => (item?.score > 0));
     }
 
     return removeDuplicatesById(items);
