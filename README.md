@@ -89,9 +89,16 @@ let filteredData = deepSearching({workItem: 'US-'}, nestedArray, replacements);
 import deepSearching from 'deep-level-backlog-filters';
 
 
-filteredData = deepSearching( {workItem: 'US-', searchingKeyword: '', unScored: true, epicId:10, teamId: 20, status: 'to-do'}, data, {
-  workItem: 'externalKey',
-  owner: 'userId',
-  status: 'progress'
-});
+filteredData = deepSearching( {
+    workItem: 'US-',
+    searchingKeyword: '',
+    unScored: true,
+    epicId:10,
+    teamId: 20,
+    status: 'to-do'
+  }, data, {
+    workItem: 'externalKey',
+    owner: 'userId',
+    status: 'progress'
+  });
 ```
