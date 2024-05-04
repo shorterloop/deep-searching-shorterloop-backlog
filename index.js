@@ -137,7 +137,7 @@ function deepSearching(filters, data, replacements) {
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
-      const isMatched = `${item.summary} ${item.description || ''}`
+      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''}`
         .toLocaleLowerCase()
         .includes(searchingKeyword);
       if (isMatched) {
