@@ -20,7 +20,8 @@ function deepSearching(filters, data, replacements) {
     workItem,
     searchingKeyword = '',
     unScored,
-    epicId
+    epicId,
+    teamId
   } = removeEmptyStringValues(filters);
   searchingKeyword = searchingKeyword.toLocaleLowerCase();
   const {
@@ -202,6 +203,11 @@ function deepSearching(filters, data, replacements) {
     return items;
   }
 
+  function recursiveFilterByTeamId(teamId, items) {
+    items = items.filter(item => (item?.teamId == teamId));
+    return items;
+  }
+
   const isStringifiedArray = value => {
     return (
       typeof value === 'string' && value.startsWith('[') && value.endsWith(']')
@@ -237,6 +243,10 @@ function deepSearching(filters, data, replacements) {
 
   if (epicId) {
     filteredByWorkItem = recursiveFilterByEpicId(epicId, filteredByWorkItem);
+  }
+
+  if (teamId) {
+    filteredByWorkItem = recursiveFilterByTeamId(teamId, filteredByWorkItem);
   }
 
   if (workItem) {
