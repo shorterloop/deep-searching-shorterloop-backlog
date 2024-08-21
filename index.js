@@ -157,10 +157,15 @@ function deepSearching(filters, data, replacements) {
     }
   }
 
+  function removeHtmlTagsAndEntities(myString) {
+    return myString.replace(/<[^>]*>?/gm, '').replace(/&[^;\s]+;/g, '')?.trim();
+  }
+
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
-      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item)}`
+      const text = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item)}`;
+      const isMatched = removeHtmlTagsAndEntities(text)
         .toLocaleLowerCase()
         .includes(searchingKeyword);
       if (isMatched) {
