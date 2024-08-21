@@ -135,10 +135,32 @@ function deepSearching(filters, data, replacements) {
 
     return removeDuplicatesById(result);
   }
+  // Function to check, parse, and join tags
+  function parseAndJoinTags(item) {
+    if (item.tags && typeof item.tags === 'string') {
+      try {
+        // Attempt to parse the string
+        let parsedTags = JSON.parse(item.tags);
+
+        // Check if parsedTags is an array
+        if (Array.isArray(parsedTags)) {
+          // Join the array elements by a space
+          return parsedTags.join(" ");
+        } else {
+          return '';
+        }
+      } catch (e) {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
+
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
-      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''}`
+      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item?.tags)}`
         .toLocaleLowerCase()
         .includes(searchingKeyword);
       if (isMatched) {
