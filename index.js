@@ -45,7 +45,7 @@ function deepSearching(filters, data, replacements) {
   function removeDuplicatesById(arr) {
     const uniqueIds = {};
     return arr.filter(obj => {
-      const id = `${obj.id}_${obj.externalKey.replace('-', '_')}`;
+      const id = `${obj.id}_${obj?.externalKey?.replace('-', '_')}`;
       if (!uniqueIds[id]) {
         uniqueIds[id] = true;
         return true;
@@ -57,7 +57,7 @@ function deepSearching(filters, data, replacements) {
   function recursiveFilterByWorkItem(items) {
     const result = [];
     for (const item of items) {
-      if (item.externalKey.startsWith(workItem)) {
+      if (item?.externalKey?.startsWith(workItem)) {
         result.push(item);
       }
 
@@ -88,17 +88,17 @@ function deepSearching(filters, data, replacements) {
     const result = [];
     let itemIds = [];
     for (const item of items) {
-      itemIds.push(`${item.id}_${item.externalKey.replace('-', '_')}`);
+      itemIds.push(`${item.id}_${item?.externalKey?.replace('-', '_')}`);
       if (item[statusReplacement] === status) {
         if (item.features && item.features.length) {
           const featureIds = item.features.map(
-            feature => `${feature.id}_${feature.externalKey.replace('-', '_')}`
+            feature => `${feature.id}_${feature?.externalKey?.replace('-', '_')}`
           );
           itemIds = itemIds.concat(...featureIds);
         }
         if (item.userStories && item.userStories.length) {
           const userStoryIds = item.userStories.map(
-            feature => `${feature.id}_${feature.externalKey.replace('-', '_')}`
+            feature => `${feature.id}_${feature?.externalKey?.replace('-', '_')}`
           );
 
           itemIds = itemIds.concat(...userStoryIds);
@@ -135,10 +135,32 @@ function deepSearching(filters, data, replacements) {
 
     return removeDuplicatesById(result);
   }
+  // Function to check, parse, and join tags
+  function parseAndJoinTags(item) {
+    if (item.tags && typeof item.tags === 'string') {
+      try {
+        // Attempt to parse the string
+        let parsedTags = JSON.parse(item.tags);
+
+        // Check if parsedTags is an array
+        if (Array.isArray(parsedTags)) {
+          // Join the array elements by a space
+          return parsedTags.join(" ");
+        } else {
+          return '';
+        }
+      } catch (e) {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
+
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
-      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''}`
+      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item?.tags)}`
         .toLocaleLowerCase()
         .includes(searchingKeyword);
       if (isMatched) {
