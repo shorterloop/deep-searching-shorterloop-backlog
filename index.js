@@ -160,7 +160,7 @@ function deepSearching(filters, data, replacements) {
   function recursiveFilterBySearchKey(items) {
     const result = [];
     for (const item of items) {
-      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item?.tags)}`
+      const isMatched = `${item?.externalKey || ''} ${item?.summary || ''} ${item?.description || ''} ${parseAndJoinTags(item)}`
         .toLocaleLowerCase()
         .includes(searchingKeyword);
       if (isMatched) {
