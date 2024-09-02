@@ -145,7 +145,7 @@ function deepSearching(filters, data, replacements) {
         // Check if parsedTags is an array
         if (Array.isArray(parsedTags)) {
           // Join the array elements by a space
-          return parsedTags.join(" ");
+          return parsedTags.map(tag => '#' + tag).join(" ");
         } else {
           return '';
         }
