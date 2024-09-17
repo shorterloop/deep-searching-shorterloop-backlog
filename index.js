@@ -21,7 +21,8 @@ function deepSearching(filters, data, replacements) {
     searchingKeyword = '',
     unScored,
     epicId,
-    teamId
+    teamId,
+    storyMapId
   } = removeEmptyStringValues(filters);
   searchingKeyword = searchingKeyword.toLocaleLowerCase();
   const {
@@ -230,6 +231,11 @@ function deepSearching(filters, data, replacements) {
     return items;
   }
 
+  function recursiveFilterByStoryMapId(storyMapId, items) {
+    items = items.filter(item => (item?.storyMapId == storyMapId));
+    return items;
+  }
+
   function recursiveFilterByTeamId(teamId, items) {
     items = items.filter(item => (item?.teamId == teamId));
     return items;
@@ -274,6 +280,9 @@ function deepSearching(filters, data, replacements) {
 
   if (teamId) {
     filteredByWorkItem = recursiveFilterByTeamId(teamId, filteredByWorkItem);
+  }
+  if (storyMapId) {
+    filteredByWorkItem = recursiveFilterByStoryMapId(storyMapId, filteredByWorkItem);
   }
 
   if (workItem) {
