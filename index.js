@@ -244,7 +244,8 @@ function deepSearching(filters, data, replacements) {
 
   function recursiveFilterByVersionId(versionId, items) {
     return items.filter(item =>
-      item?.version?.some(element => element.versionId === versionId)
+      Array.isArray(item.version) &&
+      item.version.some(element => String(element.versionId) === String(versionId))
     );
   }
 
