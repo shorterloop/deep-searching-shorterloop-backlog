@@ -22,7 +22,8 @@ function deepSearching(filters, data, replacements) {
     unScored,
     epicId,
     teamId,
-    solutionId
+    solutionId,
+    versionId
   } = removeEmptyStringValues(filters);
   searchingKeyword = searchingKeyword.toLocaleLowerCase();
   const {
@@ -231,14 +232,20 @@ function deepSearching(filters, data, replacements) {
     return items;
   }
 
+  function recursiveFilterByTeamId(teamId, items) {
+    items = items.filter(item => (item?.teamId == teamId));
+    return items;
+  }
+
   function recursiveFilterBysolutionId(solutionId, items) {
     items = items.filter(item => (item?.solutionId == solutionId));
     return items;
   }
 
-  function recursiveFilterByTeamId(teamId, items) {
-    items = items.filter(item => (item?.teamId == teamId));
-    return items;
+  function recursiveFilterByVersionId(versionId, items) {
+    return items.filter(item =>
+      item?.version?.some(element => element.versionId === versionId)
+    );
   }
 
   const isStringifiedArray = value => {
@@ -281,8 +288,13 @@ function deepSearching(filters, data, replacements) {
   if (teamId) {
     filteredByWorkItem = recursiveFilterByTeamId(teamId, filteredByWorkItem);
   }
+
   if (solutionId) {
     filteredByWorkItem = recursiveFilterBysolutionId(solutionId, filteredByWorkItem);
+  }
+
+  if (versionId) {
+    filteredByWorkItem = recursiveFilterByVersionId(versionId, filteredByWorkItem);
   }
 
   if (workItem) {
