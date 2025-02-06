@@ -244,11 +244,10 @@ function deepSearching(filters, data, replacements) {
 
   function recursiveFilterByVersionId(versionId, items) {
     return items.filter(item =>
-      Array.isArray(item.version) &&
-      item.version.some(element => String(element.versionId) === String(versionId))
+      item?.version?.some(element => element.id === versionId)
     );
   }
-
+  
   const isStringifiedArray = value => {
     return (
       typeof value === 'string' && value.startsWith('[') && value.endsWith(']')
