@@ -1,6 +1,6 @@
 {
   "name": "deep-level-backlog-filters",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Search through object properties recursively at any level.",
   "main": "index.js",
   "scripts": {
