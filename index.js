@@ -23,7 +23,8 @@ function deepSearching(filters, data, replacements) {
     epicId,
     teamId,
     solutionId,
-    versionId
+    versionId,
+    projectTypeKey
   } = removeEmptyStringValues(filters);
   searchingKeyword = searchingKeyword.toLocaleLowerCase();
   const {
@@ -247,6 +248,10 @@ function deepSearching(filters, data, replacements) {
       item?.version?.some(element => element.id === versionId)
     );
   }
+
+  function recursiveFilterByjiraProjectId(projectTypeKey, items) {
+    return items.filter(item => item.jiraKey.startsWith(projectTypeKey));
+  }
   
   const isStringifiedArray = value => {
     return (
@@ -295,6 +300,10 @@ function deepSearching(filters, data, replacements) {
 
   if (versionId) {
     filteredByWorkItem = recursiveFilterByVersionId(versionId, filteredByWorkItem);
+  }
+
+  if (projectTypeKey) {
+    filteredByWorkItem = recursiveFilterByjiraProjectId(projectTypeKey, filteredByWorkItem);
   }
 
   if (workItem) {
