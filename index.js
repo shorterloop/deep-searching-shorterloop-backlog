@@ -234,8 +234,31 @@ function deepSearching(filters, data, replacements) {
   }
 
   function recursiveFilterByTeamId(teamId, items) {
-    items = items.filter(item => (item?.teamId == teamId));
-    return items;
+    const result = [];
+    for (const item of items) {
+      if (item?.teamId == teamId) {
+        result.push(item);
+        continue;
+      }
+
+      if (item.features && item.features.length > 0) {
+        const matchingFeatures = item.features.filter(
+          feature => feature?.teamId == teamId
+        );
+        if (matchingFeatures.length > 0) {
+          result.push(...matchingFeatures);
+        }
+      } else if (item.userStories && item.userStories.length > 0) {
+        const matchingStories = item.userStories.filter(
+          story => story?.teamId == teamId
+        );
+        if (matchingStories.length > 0) {
+          result.push(...matchingStories);
+        }
+      }
+    }
+
+    return result;
   }
 
   function recursiveFilterBysolutionId(solutionId, items) {
@@ -252,7 +275,7 @@ function deepSearching(filters, data, replacements) {
   function recursiveFilterByjiraProjectId(projectTypeKey, items) {
     return items.filter(item => item.jiraKey.startsWith(projectTypeKey));
   }
-  
+
   const isStringifiedArray = value => {
     return (
       typeof value === 'string' && value.startsWith('[') && value.endsWith(']')
