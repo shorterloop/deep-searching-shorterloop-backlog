@@ -234,26 +234,37 @@ function deepSearching(filters, data, replacements) {
   }
 
   function recursiveFilterByTeamId(teamId, items) {
-    const result = [];
-    for (const item of items) {
-      if (item?.teamId == teamId) {
-        result.push(item);
-        continue;
-      }
+    if (!items || !items.length) return [];
 
-      if (item.features && item.features.length > 0) {
-        const matchingFeatures = item.features.filter(
-          feature => feature?.teamId == teamId
-        );
-        if (matchingFeatures.length > 0) {
-          result.push(...matchingFeatures);
+    const result = [];
+
+    const checkAndAddItem = (item) => {
+      if (!item) return;
+
+      if (item.teamId == teamId) {
+        result.push(item);
+        return true;
+      }
+      return false;
+    };
+
+    for (const item of items) {
+      if (checkAndAddItem(item)) continue;
+
+      if (item.features?.length > 0) {
+        for (const feature of item.features) {
+          checkAndAddItem(feature);
+
+          if (feature.userStories?.length > 0) {
+            for (const story of feature.userStories) {
+              checkAndAddItem(story);
+            }
+          }
         }
-      } else if (item.userStories && item.userStories.length > 0) {
-        const matchingStories = item.userStories.filter(
-          story => story?.teamId == teamId
-        );
-        if (matchingStories.length > 0) {
-          result.push(...matchingStories);
+      }
+      else if (item.userStories?.length > 0) {
+        for (const story of item.userStories) {
+          checkAndAddItem(story);
         }
       }
     }
